@@ -1,0 +1,23 @@
+{
+  "name": "ngx-validations",
+  "version": "0.0.1",
+  "description": "Reusable module for Angular Form validation",
+  "author": "Nitin Singh",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nitin27may/NgxValidations.git"
+  },
+  "homepage": "https://github.com/nitin27may/NgxValidations",
+  "keywords": [
+    "angular",
+    "validations",
+    "angular form",
+    "template form",
+    "reactive form"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^9.0.7",
+    "@angular/core": "^9.0.7",
+    "tslib": "^1.10.0"
+  }
+}

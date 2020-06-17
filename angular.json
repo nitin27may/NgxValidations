@@ -119,6 +119,46 @@
           }
         }
       }
+    },
+    "NgxValidations": {
+      "projectType": "library",
+      "root": "projects/ngx-validations",
+      "sourceRoot": "projects/ngx-validations/src",
+      "prefix": "NgxVal",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-validations/tsconfig.lib.json",
+            "project": "projects/ngx-validations/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-validations/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-validations/src/test.ts",
+            "tsConfig": "projects/ngx-validations/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-validations/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-validations/tsconfig.lib.json",
+              "projects/ngx-validations/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "NgxValidationsLibrary"
 }
