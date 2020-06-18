@@ -1,27 +1,179 @@
-# NgxValidationsLibrary
+# NgxValidations
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.
+Forms bring life to our web applications. It’s how we capture user input and make our applications useful. 
+In every scenario, developers end with writing a lot html code just to show the relative messages based on the type of input validation error. We have created a validation module which will have all these logic to validate the input and display relative message from it. 
+ This library is Ivy Compatible and is tested against an Angular 8, 9 app. 
 
-## Development server
+* It is developed using `Angular >=9.0.0` and its newly introduced `ng g library` schematics.
+* This library is part of NgDirectives project and it is generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.
+* Library location: `projects/ngxvalidations` directory of this repository.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Validation List List 
 
-## Code scaffolding
+| Validators            |                 Description                     |  
+| ----------------------| :---------------------------------------------: |
+| `required`            | to validated and display required error         | 
+| `minLength`           | to validated and display min length error  | 
+| `maxLength`           | to validated and display max length error  | 
+| `emailValidator`      | to validate if entered email is valid | 
+| `mobileValidator`     |  to validate if entered email is valid  | 
+| `postalCodeValidator` |  to validate if entered postal is valid (North America postal code)  | 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Upcoming validators
 
-## Build
+| selector                |                         Description                               |  
+| ------------------------| :---------------------------------------------------------------: |
+| `passwordStrength`      | it will check if password strength is strong or not               | 
+| `passwordMatch`         | it will ccompare password and confirm password and display error if not matched   | 
+| `dateComparison`        | it will validated that to date is greater than from date  | 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Examples/Demo
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+* A simple Example can be found under `src/app` directory of this repository. 
 
-## Further help
+## Installation
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+`npm i ngx-validations`
+
+## Usage
+
+1) Register the `NgxValidationsModule` in your app module.
+ > `import { NgxValidationsModule } from "ng-validations";`
+
+ ```typescript
+ import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { NgxValidationsModule } from "ngx-validations";
+import { CommonModule } from "@angular/common";
+import { ReactiveFormsModule } from "@angular/forms";
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    CommonModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    NgxValidationsModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+
+ ```
+
+ 2) Use service `(NgxValidationsService)` to get additional method of validaion in your component.
+
+```typescript
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { NgxValidationsService } from "ngx-validations";
+
+@Component({
+  selector: "ngx-val-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"],
+})
+export class AppComponent implements OnInit {
+  userForm: FormGroup;
+  title = "Ngx Validations Library";
+  constructor(
+    private formBuilder: FormBuilder,
+    private validationService: NgxValidationsService
+  ) {}
+
+  createForm() {
+    this.userForm = this.formBuilder.group({
+      FirstName: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(35),
+        ],
+      ],
+      LastName: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(35),
+        ],
+      ],
+      Email: ["", [Validators.required, this.validationService.emailValidator]],
+      Mobile: [
+        "",
+        [Validators.required, this.validationService.mobileValidator],
+      ],
+      PostalCode: [
+        "",
+        [Validators.required, this.validationService.postalCodeValidator],
+      ],
+    });
+  }
+
+  reset() {
+    this.createForm();
+  }
+  ngOnInit() {
+    this.createForm();
+  }
+}
+
+```
+3) Use custom element `<ngx-validation-message>` to display all error messages for a contol.
+
+```typescript
+      <form [formGroup]="userForm">
+        <div class="form-row mt-4">
+          <div class="col-sm-6 pb-3">
+            <label for="exampleFirst">First Name</label>
+            <input type="text" class="form-control" formControlName="FirstName">
+            <ngx-validation-message [control]="userForm.controls.FirstName"></ngx-validation-message>
+          </div>
+          <div class="col-sm-6 pb-3">
+            <label for="exampleLast">Last Name</label>
+            <input type="text" class="form-control" formControlName="LastName">
+            <ngx-validation-message [control]="userForm.controls.LastName"></ngx-validation-message>
+          </div>
+          <div class="col-sm-5 pb-3">
+            <label for="exampleAccount">Email </label>
+            <input type="text" class="form-control" formControlName="Email">
+            <ngx-validation-message [control]="userForm.controls.Email"></ngx-validation-message>
+          </div>
+          <div class="col-sm-3 pb-3">
+            <label for="exampleCtrl">Mobile #</label>
+            <input type="text" class="form-control" formControlName="Mobile">
+            <ngx-validation-message [control]="userForm.controls.Mobile"></ngx-validation-message>
+          </div>
+          <div class="col-sm-4 pb-3">
+            <label for="exampleZip">Postal Code</label>
+            <input type="text" class="form-control" formControlName="PostalCode">
+            <ngx-validation-message [control]="userForm.controls.PostalCode"></ngx-validation-message>
+          </div>
+        </div>
+      </form>
+
+```
+
+## Running the example in local env
+
+* `npm i`
+* Run `ng serve` for a dev server and running the demo app. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+
+## Build the NgxValidations module
+
+Run `ng build NgxValidations` to build the library. The build artifacts will be stored in the `dist/ngx-validations` directory. Use the `--prod` flag for a production build.
+
+
+## Credits
+
+I want to thanks entire [Angular](https://angular.io) team for creating this awesome framework.

@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:lib": "ng build NgxValidations --watch",
+    "dev": "npm run build:lib && npm start",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
