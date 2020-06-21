@@ -5,19 +5,20 @@ In every scenario, developers end with writing a lot html code just to show the 
  This library is Ivy Compatible and is tested against an Angular 8, 9 app. 
 
 * It is developed using `Angular >=9.0.0` and its newly introduced `ng g library` schematics.
-* This library is part of NgDirectives project and it is generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.
-* Library location: `projects/ngxvalidations` directory of this repository.
+* This library is part of NgxValidations project and it is generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.
+* Library location: `projects/ngx-validations` directory of this repository.
 
 ## Validation List List 
 
-| Validators            |                 Description                     |  
-| ----------------------| :---------------------------------------------: |
-| `required`            | to validated and display required error         | 
-| `minLength`           | to validated and display min length error  | 
-| `maxLength`           | to validated and display max length error  | 
-| `emailValidator`      | to validate if entered email is valid | 
-| `mobileValidator`     |  to validate if entered email is valid  | 
-| `postalCodeValidator` |  to validate if entered postal is valid (North America postal code)  | 
+| Validators            | Validator Methods             |                 Description                     |  
+| --------------------- |-------------------------------| :---------------------------------------------: |
+| `required`            | `Validators.required`            | to validated and display required error         | 
+| `minLength`           | `Validators.minLength(length)`            | to validated and display min length error  | 
+| `maxLength`           | `Validators.maxLength(35)`            | to validated and display max length error  | 
+| `emailValidator`      | `this.validationService.emailValidator`            | to validate if entered email is valid | 
+| `mobileValidator`     | `this.validationService.mobileValidator`            |  to validate if entered email is valid  | 
+| `postalCodeValidator` | `this.validationService.postalCodeValidator`            |  to validate if entered postal is valid (North America postal code)  | 
+
 
 ### Upcoming validators
 
